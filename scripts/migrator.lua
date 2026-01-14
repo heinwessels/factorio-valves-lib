@@ -1,6 +1,4 @@
 
-local config = require("__valves__.config")
-
 local migrator = { }
 
 ---Valve types that we support based on the old way that I

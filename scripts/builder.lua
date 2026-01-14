@@ -1,5 +1,5 @@
-local config = require("__valves__.config")
-local migrator = require("__valves__.scripts.migrator")
+local config = require("__valves-lib__.config")
+local migrator = require("__valves-lib__.scripts.migrator")
 
 local builder = { }
 

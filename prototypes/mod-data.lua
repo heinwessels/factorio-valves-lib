@@ -26,11 +26,7 @@ data:extend{
         name = "mod-valves",
         data = {
             ---@type table<string, data.ValvesModValveConfig>
-            valves = {
-                ["valves-overflow"] = { name = "valves-overflow" },
-                ["valves-top_up"] = { name = "valves-top_up" },
-                ["valves-one_way"] = { name = "valves-one_way" },
-            }
+            valves = { }
         }
     },
 }

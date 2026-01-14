@@ -1,4 +1,4 @@
-local config = require("config")
+local config = require("__valves-lib__.config")
 
 -- This functionionality is to warn the player that there is unintended behaviour
 -- when a valve's output is connected to a pump's input. In this scenario the pump

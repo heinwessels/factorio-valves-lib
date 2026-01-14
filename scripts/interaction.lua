@@ -1,5 +1,5 @@
-local config = require("__valves__.config")
-local builder = require("__valves__.scripts.builder")
+local config = require("__valves-lib__.config")
+local builder = require("__valves-lib__.scripts.builder")
 
 ---@class ThresholdRendering
 ---@field render_object LuaRenderObject
