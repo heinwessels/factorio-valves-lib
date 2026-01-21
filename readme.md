@@ -6,6 +6,13 @@ A library that adds functionality to valves. For more information see what the [
 
 For other modders, this mod can manage your custom mod's thresholds, show it on entity selected, show warnings, etc. See the [mod-data.lua](https://github.com/heinwessels/factorio-valves-lib/blob/master/prototypes/mod-data.lua) for more information.
 
+## Mods that use this library (maybe incomplete list):
+
+- [Valves](https://mods.factorio.com/mod/valves)
+- [Valves: Angel's Adjustable Thresholds](https://mods.factorio.com/mod/valves-angels)
+- [Valves: Bobs's Adjustable Thresholds](https://mods.factorio.com/mod/valves-bobs)
+- [Valves: Pyanodons's Adjustable Thresholds](https://mods.factorio.com/mod/valves-py)
+
 ## Credits
 - _Boskid_ and _raiguard_ for their work on the Factorio fluid mechanics.
 - _justarandomgeek_ for the [Factorio Modding Toolkit](https://marketplace.visualstudio.com/items?itemName=justarandomgeek.factoriomod-debug), without which this mod would not have been possible.
