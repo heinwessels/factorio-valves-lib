@@ -12,30 +12,29 @@ local config = require("__valves-lib__.config")
 
 local warnings = { }
 
----@param fluidbox LuaFluidBox
+---@param entity LuaEntity
 ---@param flow_direction "input"|"output"
 ---@param target_specifier {type:string?, names:table<string,boolean>?, entity:LuaEntity?}
----@return LuaFluidBox? connected_fluidbox to the fluidbox
-local function fluidbox_is_connected_to(fluidbox, flow_direction, target_specifier)
+---@return LuaEntity? connected_fluidbox to the fluidbox
+local function entity_is_connected_to(entity, flow_direction, target_specifier)
     -- Both valves and pumps only have one fluidbox.
-    for _, pipe_connection in pairs(fluidbox.get_pipe_connections(1)) do
+    for _, pipe_connection in pairs(entity.get_fluid_box_pipe_connections(1)) do
         if pipe_connection.flow_direction == flow_direction then
             local target = pipe_connection.target
             if not target then goto continue end
-            local owner = target.owner
 
             if target_specifier.type then
-                if owner.type == target_specifier.type then
+                if target.type == target_specifier.type then
                     return target
                 end
 
             elseif target_specifier.names then
-                if target_specifier.names[owner.name] then
+                if target_specifier.names[target.name] then
                     return target
                 end
 
             elseif target_specifier.entity then
-                if owner == target_specifier.entity then
+                if target == target_specifier.entity then
                     return target
                 end
 
@@ -52,19 +51,19 @@ end
 ---@param valve LuaEntity
 ---@return boolean? true if the valve's output is connected to a pump's input
 local function valve_has_bad_connection(valve)
-    local pump_fluidbox = fluidbox_is_connected_to(valve.fluidbox, "output", {type = "pump"})
-    if not pump_fluidbox then return end -- Not connected to a pump
+    local pump = entity_is_connected_to(valve, "output", {type = "pump"})
+    if not pump then return end -- Not connected to a pump
     -- Now ensure we're connected to the pump's _input_
-    return fluidbox_is_connected_to(pump_fluidbox, "input", {entity = valve}) ~= nil
+    return entity_is_connected_to(pump, "input", {entity = valve}) ~= nil
 end
 
 ---@param pump LuaEntity
 ---@return boolean? true if the pump's input is connected to a valves's output
 local function pump_has_bad_connection(pump)
-    local valve_fluidbox = fluidbox_is_connected_to(pump.fluidbox, "input", {names = config.valves})
-    if not valve_fluidbox then return end -- Not connected to a valve
+    local valve = entity_is_connected_to(pump, "input", {names = config.valves --[[@as table<string,boolean>]]})
+    if not valve then return end -- Not connected to a valve
     -- Now ensure we're connected to the valve's _input_
-    return fluidbox_is_connected_to(valve_fluidbox, "output", {entity = pump}) ~= nil
+    return entity_is_connected_to(valve, "output", {entity = pump}) ~= nil
 end
 
 -- Generate nice handlers for all our valves and all pumps when might need to deal with.
